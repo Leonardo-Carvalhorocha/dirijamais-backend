@@ -57,7 +57,7 @@ public class UsuarioService implements IUsuarioService {
         usuarioEncontrado.setDataNascimento(usuario.getDataNascimento());
         usuarioEncontrado.setEmail(usuario.getEmail());
         usuarioEncontrado.setTelefone(usuario.getTelefone());
-        usuarioEncontrado.setInativo(usuario.getInativo());
+        usuarioEncontrado.setAtivo(usuario.getAtivo());
         usuarioEncontrado.setNome(usuario.getNome());
 
         usuarioEncontrado = repository.save(usuarioEncontrado);
@@ -67,12 +67,12 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Page<Usuario> pesquisar(FiltroDTO filtro, Pageable pageable) {
-        Page<Usuario> movimentos = repository.findAll(DynamicSpecifications.bySearchFilter(filtro.getFilters(), filtro.getOrders()), pageable);
-		List<Usuario> responses = movimentos
+        Page<Usuario> usuarios = repository.findAll(DynamicSpecifications.bySearchFilter(filtro.getFilters(), filtro.getOrders()), pageable);
+		List<Usuario> responses = usuarios
 				.getContent()
 				.stream()
 				.collect(Collectors.toList());
-		Page<Usuario> response = new PageImpl(responses, movimentos.getPageable(), movimentos.getTotalElements());
+		Page<Usuario> response = new PageImpl(responses, usuarios.getPageable(), usuarios.getTotalElements());
 		return response;
     }
 

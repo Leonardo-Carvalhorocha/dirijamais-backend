@@ -46,5 +46,5 @@ public class BaseEntity {
     @Setter
 	@Getter
 	@Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
-	private Boolean inativo = Boolean.FALSE;
+	private Boolean ativo = Boolean.FALSE;
 }

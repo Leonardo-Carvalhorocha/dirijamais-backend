@@ -23,5 +23,12 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponseDTO(HttpStatus.BAD_REQUEST, ex.getMessage()));
     }
+
+    @ExceptionHandler(VeiculoNaoEncontradoException.class)
+    public ResponseEntity<ErrorResponseDTO> handleVeiculoNaoEncontradoException(VeiculoNaoEncontradoException ex) {
+          return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponseDTO(HttpStatus.BAD_REQUEST, ex.getMessage()));
+    }
     
 }

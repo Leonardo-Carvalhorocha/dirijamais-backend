@@ -1,6 +1,7 @@
 package dirijamais.project.dirijamais.modulos.usuario.models;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,10 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import dirijamais.project.dirijamais.aplicacao.models.BaseEntity;
 import dirijamais.project.dirijamais.modulos.usuario.enums.Role;
+import dirijamais.project.dirijamais.modulos.veiculo.models.Veiculo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -49,6 +52,9 @@ public class Usuario extends BaseEntity implements UserDetails  {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.ROLE_USER;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Veiculo> veiculos = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
