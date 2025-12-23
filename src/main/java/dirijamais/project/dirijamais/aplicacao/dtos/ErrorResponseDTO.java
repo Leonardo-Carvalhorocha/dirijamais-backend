@@ -8,11 +8,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ErrorResponseDTO {
-    private HttpStatus status;
+    // private HttpStatus status;
+    // private String message;
+    private Integer status;
+    private String error;
     private String message;
 
-    public ErrorResponseDTO(HttpStatus status, String message) {
-        this.status = status;
+     public ErrorResponseDTO(HttpStatus status, String message) {
+        this.status = status.value();
+        this.error = status.name();
         this.message = message;
     }
 }

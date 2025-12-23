@@ -14,6 +14,8 @@ public interface IUsuarioService {
 
     Usuario buscarPorUuid(UUID uuid);
 
+    Usuario buscarPorEmail(String email);
+
     Usuario atualizar(Usuario usuario);
 
     Page<Usuario> pesquisar(FiltroDTO filtro, Pageable pageable);

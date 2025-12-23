@@ -76,4 +76,12 @@ public class UsuarioService implements IUsuarioService {
 		return response;
     }
 
+    @Override
+    public Usuario buscarPorEmail(String email) {
+        Usuario usuario = repository.findByEmail(email).orElseThrow(() -> {
+            throw new UsuarioNaoEncontradoException();
+        });
+        return usuario;
+    }
+
 }

@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
       public ResponseEntity<ErrorResponseDTO> handleEmailJaCadastrado(EmailJaCadastradoException ex) {
             return ResponseEntity
                   .status(HttpStatus.CONFLICT)
-                  .body(new ErrorResponseDTO(HttpStatus.CONFLICT, ex.getMessage()));
+                  .body(new ErrorResponseDTO( HttpStatus.CONFLICT, ex.getMessage() ));
       }
 
       @ExceptionHandler(UsuarioNaoEncontradoException.class)
@@ -45,5 +45,20 @@ public class GlobalExceptionHandler {
                   .status(HttpStatus.CONFLICT)
                   .body(new ErrorResponseDTO(HttpStatus.BAD_REQUEST, ex.getMessage()));
       }
+
+      @ExceptionHandler(TransacaoEntradaNaoEncontradaException.class)
+      public ResponseEntity<ErrorResponseDTO> handleTransacaoEntradaNaoEncontradaException(TransacaoEntradaNaoEncontradaException ex) {
+            return ResponseEntity
+                  .status(HttpStatus.NOT_FOUND)
+                  .body(new ErrorResponseDTO(HttpStatus.NOT_FOUND, ex.getMessage()));
+      }
+
+     @ExceptionHandler(UsuarioLoginException.class)
+      public ResponseEntity<ErrorResponseDTO> handleUsuarioLoginException(UsuarioLoginException ex) {
+      return ResponseEntity
+                  .status(HttpStatus.UNAUTHORIZED)
+                  .body(new ErrorResponseDTO(HttpStatus.UNAUTHORIZED, ex.getMessage()));
+      }
+
     
 }

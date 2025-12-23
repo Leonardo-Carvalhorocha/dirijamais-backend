@@ -1,5 +1,7 @@
 package dirijamais.project.dirijamais.modulos.login.controllers;
 
+import javax.naming.AuthenticationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,6 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody UsuarioLoginDTO usuarioLoginDTO) {
-        
         Usuario usuarioAutenticado = service.authenticate(usuarioLoginDTO);
         String jwtToken = jwtService.generateToken(usuarioAutenticado);
 
@@ -42,6 +43,7 @@ public class LoginController {
         loginResponse.setUsuario(usuarioResponseModel);
 
         return ResponseEntity.ok(loginResponse);
+
     }
 
 }

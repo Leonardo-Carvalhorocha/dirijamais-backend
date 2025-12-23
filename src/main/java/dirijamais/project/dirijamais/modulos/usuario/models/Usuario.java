@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import dirijamais.project.dirijamais.aplicacao.models.BaseEntity;
+import dirijamais.project.dirijamais.modulos.transacao.models.TransacaoEntrada;
 import dirijamais.project.dirijamais.modulos.usuario.enums.Role;
 import dirijamais.project.dirijamais.modulos.veiculo.models.Veiculo;
 import jakarta.persistence.CascadeType;
@@ -61,6 +62,9 @@ public class Usuario extends BaseEntity implements UserDetails  {
 
     @OneToMany(mappedBy = "usuario")
     private List<Veiculo> veiculos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private List<TransacaoEntrada> transacaoEntradas = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
