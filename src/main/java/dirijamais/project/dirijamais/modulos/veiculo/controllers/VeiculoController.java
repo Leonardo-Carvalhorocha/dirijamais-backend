@@ -92,6 +92,4 @@ public class VeiculoController {
 		return new PageImpl<>(lista, veiculos.getPageable(), veiculos.getTotalElements());
     }
     
-    
-
 }

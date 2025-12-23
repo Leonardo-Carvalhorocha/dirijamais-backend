@@ -36,7 +36,6 @@ public class VeiculoService implements IVeiculoService {
     @Autowired
     private UsuarioService usuarioService;
 
-    // @Transactional
     @Override
     public Veiculo adicionar(Veiculo veiculo) {
         Usuario usuario = usuarioService.buscarPorUuid(veiculo.getUsuario().getUuid());
