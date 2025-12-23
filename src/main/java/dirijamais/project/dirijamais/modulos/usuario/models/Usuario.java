@@ -12,11 +12,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import dirijamais.project.dirijamais.aplicacao.models.BaseEntity;
 import dirijamais.project.dirijamais.modulos.usuario.enums.Role;
 import dirijamais.project.dirijamais.modulos.veiculo.models.Veiculo;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -48,6 +51,9 @@ public class Usuario extends BaseEntity implements UserDetails  {
     private String telefone;
 
     private OffsetDateTime dataNascimento;
+    
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PerfilUsuarioMotorista perfilMotorista;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

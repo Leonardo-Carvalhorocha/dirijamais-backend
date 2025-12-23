@@ -1,9 +1,7 @@
 package dirijamais.project.dirijamais.modulos.veiculo.dtos;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-import dirijamais.project.dirijamais.modulos.usuario.dtos.UsuarioRequestModel;
 import dirijamais.project.dirijamais.modulos.usuario.dtos.UsuarioUuid;
 import dirijamais.project.dirijamais.modulos.veiculo.enums.SituacaoVeiculo;
 import dirijamais.project.dirijamais.modulos.veiculo.enums.TipoCombustivel;
