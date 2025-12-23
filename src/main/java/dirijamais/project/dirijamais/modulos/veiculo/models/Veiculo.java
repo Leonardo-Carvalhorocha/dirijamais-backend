@@ -7,14 +7,15 @@ import dirijamais.project.dirijamais.modulos.usuario.models.Usuario;
 import dirijamais.project.dirijamais.modulos.veiculo.enums.SituacaoVeiculo;
 import dirijamais.project.dirijamais.modulos.veiculo.enums.TipoCombustivel;
 import dirijamais.project.dirijamais.modulos.veiculo.enums.TipoVeiculo;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,28 @@ public class Veiculo extends BaseEntity {
 
     private BigDecimal consumoMedioKmPorLitro;
 
-    @Transient
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "valorMensal", column = @Column(name = "seguro_valor_mensal")),
+        @AttributeOverride(name = "quantidadeParcelas", column = @Column(name = "seguro_qtd_parcelas")),
+        @AttributeOverride(name = "inicioVigencia", column = @Column(name = "seguro_inicio_vigencia")),
+        @AttributeOverride(name = "fimVigencia", column = @Column(name = "seguro_fim_vigencia"))
+    })
     private SeguroVeiculo seguroVeiculo;
+
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "valorMensal", column = @Column(name = "fin_valor_mensal")),
+        @AttributeOverride(name = "quantidadeParcelas", column = @Column(name = "fin_qtd_parcelas")),
+        @AttributeOverride(name = "inicioVigencia", column = @Column(name = "fin_inicio_vigencia")),
+        @AttributeOverride(name = "fimVigencia", column = @Column(name = "fin_fim_vigencia"))
+    })
+    private FinanciamentoVeiculo financiamentoVeiculo;
+
+    @Embedded
+    private FranquiaAluguel franquiaAluguel;
+
+    @Embedded
+    private Combustivel combustivel;
+
 }

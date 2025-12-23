@@ -13,12 +13,19 @@ import org.springframework.stereotype.Service;
 import dirijamais.project.dirijamais.aplicacao.exception.VeiculoNaoEncontradoException;
 import dirijamais.project.dirijamais.aplicacao.filtros.DynamicSpecifications;
 import dirijamais.project.dirijamais.aplicacao.filtros.dto.FiltroDTO;
+import dirijamais.project.dirijamais.aplicacao.models.Parcelamento;
 import dirijamais.project.dirijamais.modulos.usuario.models.Usuario;
 import dirijamais.project.dirijamais.modulos.usuario.services.implementacao.UsuarioService;
+import dirijamais.project.dirijamais.modulos.veiculo.models.FranquiaAluguel;
 import dirijamais.project.dirijamais.modulos.veiculo.models.Veiculo;
 import dirijamais.project.dirijamais.modulos.veiculo.repositors.VeiculoRepository;
 import dirijamais.project.dirijamais.modulos.veiculo.services.IVeiculoService;
 
+/**
+ * Classe responsável por gerenciar veículos.
+ *
+ * @author Leonardo Carvalho
+ */
 @Service
 public class VeiculoService implements IVeiculoService {
 
@@ -42,6 +49,8 @@ public class VeiculoService implements IVeiculoService {
                 repository.save(v);
             });
         }
+
+        ajustarObjetosPorSituacao(veiculo);
 
         veiculo = repository.save(veiculo);
 
@@ -97,6 +106,62 @@ public class VeiculoService implements IVeiculoService {
 				.collect(Collectors.toList());
 		Page<Veiculo> response = new PageImpl(responses, veiculos.getPageable(), veiculos.getTotalElements());
 		return response;
+    }
+
+                                                                                      
+// $$\      $$\ $$$$$$$$\ $$$$$$$$\  $$$$$$\  $$$$$$$\   $$$$$$\   $$$$$$\         $$$$$$\  $$$$$$$$\ $$$$$$$\   $$$$$$\  $$$$$$\  $$$$$$\  
+// $$$\    $$$ |$$  _____|\__$$  __|$$  __$$\ $$  __$$\ $$  __$$\ $$  __$$\       $$  __$$\ $$  _____|$$  __$$\ $$  __$$\ \_$$  _|$$  __$$\ 
+// $$$$\  $$$$ |$$ |         $$ |   $$ /  $$ |$$ |  $$ |$$ /  $$ |$$ /  \__|      $$ /  \__|$$ |      $$ |  $$ |$$ /  $$ |  $$ |  $$ /  \__|
+// $$\$$\$$ $$ |$$$$$\       $$ |   $$ |  $$ |$$ |  $$ |$$ |  $$ |\$$$$$$\        $$ |$$$$\ $$$$$\    $$$$$$$  |$$$$$$$$ |  $$ |  \$$$$$$\  
+// $$ \$$$  $$ |$$  __|      $$ |   $$ |  $$ |$$ |  $$ |$$ |  $$ | \____$$\       $$ |\_$$ |$$  __|   $$  __$$< $$  __$$ |  $$ |   \____$$\ 
+// $$ |\$  /$$ |$$ |         $$ |   $$ |  $$ |$$ |  $$ |$$ |  $$ |$$\   $$ |      $$ |  $$ |$$ |      $$ |  $$ |$$ |  $$ |  $$ |  $$\   $$ |
+// $$ | \_/ $$ |$$$$$$$$\    $$ |    $$$$$$  |$$$$$$$  | $$$$$$  |\$$$$$$  |      \$$$$$$  |$$$$$$$$\ $$ |  $$ |$$ |  $$ |$$$$$$\ \$$$$$$  |
+// \__|     \__|\________|   \__|    \______/ \_______/  \______/  \______/        \______/ \________|\__|  \__|\__|  \__|\______| \______/ 
+                                                                                                                                                                                                        
+
+    private void ajustarObjetosPorSituacao(Veiculo veiculo) {
+        if (isEmpty(veiculo.getSeguroVeiculo())) {
+            veiculo.setSeguroVeiculo(null);
+        }
+
+        switch (veiculo.getSituacaoVeiculo()) {
+
+            case ALUGADO -> {
+                veiculo.setFinanciamentoVeiculo(null);
+
+                if (isEmpty(veiculo.getFranquiaAluguel())) {
+                    veiculo.setFranquiaAluguel(null);
+                }
+            }
+
+            case FINANCIADO -> {
+                veiculo.setFranquiaAluguel(null);
+
+                if (isEmpty(veiculo.getFinanciamentoVeiculo())) {
+                    veiculo.setFinanciamentoVeiculo(null);
+                }
+            }
+
+            case PROPRIO -> {
+                veiculo.setFranquiaAluguel(null);
+                veiculo.setFinanciamentoVeiculo(null);
+            }
+        }
+    }
+
+    private boolean isEmpty(FranquiaAluguel franquia) {
+        if (franquia == null) return true;
+
+        return franquia.getValorSemanal() == null && franquia.getKmPermitidosSemanal() == null;
+    }
+
+    private boolean isEmpty(Parcelamento parcelamento) {
+        if (parcelamento == null) return true;
+
+        return parcelamento.getValorMensal() == null
+            && parcelamento.getQuantidadeParcelas() == null
+            && parcelamento.getInicioVigencia() == null
+            && parcelamento.getFimVigencia() == null;
     }
 
 }

@@ -4,6 +4,6 @@ import dirijamais.project.dirijamais.aplicacao.models.Parcelamento;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class SeguroVeiculo extends Parcelamento {
+public class FinanciamentoVeiculo extends Parcelamento {
 
 }

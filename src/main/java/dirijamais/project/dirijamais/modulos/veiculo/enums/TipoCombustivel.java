@@ -4,5 +4,6 @@ public enum TipoCombustivel {
     GASOLINA,
     ETANOL,
     DIESEL,
-    ELETRICO
+    ELETRICO,
+    HIBRIDO,
 }

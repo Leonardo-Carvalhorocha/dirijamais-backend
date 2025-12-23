@@ -4,7 +4,5 @@ public enum TipoVeiculo {
     HATCH,
     SEDAN,
     SUV,
-    ELETRICO,
-    HIBRIDO,
     MOTO
 }
