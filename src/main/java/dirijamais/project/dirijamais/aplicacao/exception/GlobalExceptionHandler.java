@@ -53,6 +53,13 @@ public class GlobalExceptionHandler {
                   .body(new ErrorResponseDTO(HttpStatus.NOT_FOUND, ex.getMessage()));
       }
 
+      @ExceptionHandler(TransacaoSaidaNaoEncontradaException.class)
+      public ResponseEntity<ErrorResponseDTO> handleTransacaoSaidaNaoEncontradaException(TransacaoSaidaNaoEncontradaException ex) {
+            return ResponseEntity
+                  .status(HttpStatus.NOT_FOUND)
+                  .body(new ErrorResponseDTO(HttpStatus.NOT_FOUND, ex.getMessage()));
+      }
+
      @ExceptionHandler(UsuarioLoginException.class)
       public ResponseEntity<ErrorResponseDTO> handleUsuarioLoginException(UsuarioLoginException ex) {
       return ResponseEntity

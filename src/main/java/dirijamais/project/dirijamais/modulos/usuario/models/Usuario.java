@@ -11,11 +11,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import dirijamais.project.dirijamais.aplicacao.models.BaseEntity;
 import dirijamais.project.dirijamais.modulos.transacao.models.TransacaoEntrada;
+import dirijamais.project.dirijamais.modulos.transacao.models.TransacaoSaida;
 import dirijamais.project.dirijamais.modulos.usuario.enums.Role;
 import dirijamais.project.dirijamais.modulos.veiculo.models.Veiculo;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -65,6 +65,9 @@ public class Usuario extends BaseEntity implements UserDetails  {
 
     @OneToMany(mappedBy = "usuario")
     private List<TransacaoEntrada> transacaoEntradas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private List<TransacaoSaida> transacaoSaidas = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
