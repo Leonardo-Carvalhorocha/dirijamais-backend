@@ -22,7 +22,7 @@ import dirijamais.project.dirijamais.modulos.transacao.dtos.TransacaoSaidaReques
 import dirijamais.project.dirijamais.modulos.transacao.dtos.TransacaoSaidaResponseModel;
 import dirijamais.project.dirijamais.modulos.transacao.mappers.TransacaoSaidaMapper;
 import dirijamais.project.dirijamais.modulos.transacao.models.TransacaoSaida;
-import dirijamais.project.dirijamais.modulos.transacao.services.implementacao.TransacaoSaidaService;
+import dirijamais.project.dirijamais.modulos.transacao.services.ITransacaoSaidaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -33,7 +33,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 public class TransacaoSaidaController {
 
     @Autowired
-    private TransacaoSaidaService service;
+    private ITransacaoSaidaService service;
 
     @Autowired
     private TransacaoSaidaMapper mapper;

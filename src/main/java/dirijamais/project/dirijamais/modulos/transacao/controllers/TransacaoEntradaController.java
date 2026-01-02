@@ -16,7 +16,7 @@ import dirijamais.project.dirijamais.modulos.transacao.dtos.TransacaoEntradaRequ
 import dirijamais.project.dirijamais.modulos.transacao.dtos.TransacaoEntradaResponseModel;
 import dirijamais.project.dirijamais.modulos.transacao.mappers.TransacaoEntradaMapper;
 import dirijamais.project.dirijamais.modulos.transacao.models.TransacaoEntrada;
-import dirijamais.project.dirijamais.modulos.transacao.services.implementacao.TransacaoEntradaService;
+import dirijamais.project.dirijamais.modulos.transacao.services.ITransacaoEntradaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class TransacaoEntradaController {
 
     @Autowired
-    private TransacaoEntradaService service;
+    private ITransacaoEntradaService service;
 
     @Autowired
     private TransacaoEntradaMapper mapper;

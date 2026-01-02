@@ -16,7 +16,7 @@ import dirijamais.project.dirijamais.modulos.usuario.dtos.PerfilUsuarioMotorista
 import dirijamais.project.dirijamais.modulos.usuario.dtos.PerfilUsuarioMotoristaResponseModel;
 import dirijamais.project.dirijamais.modulos.usuario.mappers.PerfilUsuarioMotoristaMapper;
 import dirijamais.project.dirijamais.modulos.usuario.models.PerfilUsuarioMotorista;
-import dirijamais.project.dirijamais.modulos.usuario.services.implementacao.PerfilUsuarioMotoristaService;
+import dirijamais.project.dirijamais.modulos.usuario.services.IPerfilUsuarioMotoristaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,15 +28,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
 @RestController
 @RequestMapping("/api/v1/perfil-motorista")
 public class PerfilUsuarioMotoristaController {
 
     @Autowired
-    private PerfilUsuarioMotoristaService service;
+    private IPerfilUsuarioMotoristaService service;
 
     @Autowired
     private PerfilUsuarioMotoristaMapper mapper;
