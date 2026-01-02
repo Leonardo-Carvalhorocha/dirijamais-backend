@@ -1,6 +1,8 @@
 package dirijamais.project.dirijamais.modulos.transacao.services.implementacao;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -73,25 +75,29 @@ public class TransacaoSaidaService implements ITransacaoSaidaService {
 
     @Override
     public Page<TransacaoSaida> pesquisar(FiltroDTO filtro, Pageable pageable) {
-        Page<TransacaoSaida> page = repository.findAll(
-                DynamicSpecifications.bySearchFilter(
-                        filtro.getFilters(),
-                        filtro.getOrders()
-                ),
-                pageable
-        );
-
-        return new PageImpl<>(
-                page.getContent(),
-                page.getPageable(),
-                page.getTotalElements()
-        );
+        Page<TransacaoSaida> transacaoSaida = repository.findAll(DynamicSpecifications.bySearchFilter(filtro.getFilters(), filtro.getOrders()), pageable);
+		List<TransacaoSaida> responses = transacaoSaida
+				.getContent()
+				.stream()
+				.collect(Collectors.toList());
+		Page<TransacaoSaida> response = new PageImpl(responses, transacaoSaida.getPageable(), transacaoSaida.getTotalElements());
+		return response;
     }
 
     @Override
     public void deletar(UUID uuid) {
         TransacaoSaida transacaoSaida = buscarPorUuid(uuid);
         repository.delete(transacaoSaida);
+    }
+
+    @Override
+    public List<TransacaoSaida> buscarSaidasPorFiltro(FiltroDTO filtro, Pageable pageable) {
+        Page<TransacaoSaida> transacaoSaida = repository.findAll(DynamicSpecifications.bySearchFilter(filtro.getFilters(), filtro.getOrders()), pageable);
+		List<TransacaoSaida> responses = transacaoSaida
+				.getContent()
+				.stream()
+				.collect(Collectors.toList());
+        return responses;
     }
 }
 

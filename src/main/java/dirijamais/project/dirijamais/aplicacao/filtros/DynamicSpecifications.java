@@ -20,6 +20,7 @@ import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 
 /**
  * Recebe uma lista de campos para filtrar e uma lista de campos para ordenar. Para cada campo busca a entidade raíz (root). No caso deste for de uma entidade
@@ -194,6 +195,17 @@ public class DynamicSpecifications {
 
 	}
 
+	private static OffsetDateTime getDateTime(Object obj) {
+		try {
+			return OffsetDateTime.parse(obj.toString());
+		} catch (Exception e) {
+			throw new DomainException(
+				String.format("O valor %s informado não corresponde a uma data/hora válida.", obj)
+			);
+		}
+	}
+
+
 	private static Predicate getEqualsPredicate(CriteriaBuilder builder, Path path, SearchDTO filter) {
 		if (filter.getValue() == null) {
 			return getNullPredicate(builder, path, filter);
@@ -208,6 +220,10 @@ public class DynamicSpecifications {
 				var value = getNumber(filter.getValue());
 				Predicate predicate = builder.equal(path, value);
 				return predicate;
+			}
+			case DATETIME -> {
+				OffsetDateTime value = getDateTime(filter.getValue());
+				return builder.equal(path, value);
 			}
 
 		}
@@ -228,6 +244,11 @@ public class DynamicSpecifications {
 				Predicate predicate = builder.greaterThan(path, (Comparable) value);
 				return predicate;
 			}
+			case DATETIME -> {
+				OffsetDateTime value = getDateTime(filter.getValue());
+				return builder.greaterThan(path, value);
+			}
+
 
 		}
 		return null;
@@ -245,6 +266,11 @@ public class DynamicSpecifications {
 				Predicate predicate = builder.lessThan(path, (Comparable) value);
 				return predicate;
 			}
+			case DATETIME -> {
+				OffsetDateTime value = getDateTime(filter.getValue());
+				return builder.lessThan(path, value);
+			}
+
 
 		}
 		return null;
@@ -262,6 +288,11 @@ public class DynamicSpecifications {
 				Predicate predicate = builder.greaterThanOrEqualTo(path, (Comparable) value);
 				return predicate;
 			}
+			case DATETIME -> {
+				OffsetDateTime value = getDateTime(filter.getValue());
+				return builder.greaterThanOrEqualTo(path, value);
+			}
+
 
 		}
 		return null;
@@ -279,6 +310,11 @@ public class DynamicSpecifications {
 				Predicate predicate = builder.lessThanOrEqualTo(path, (Comparable) value);
 				return predicate;
 			}
+			case DATETIME -> {
+				OffsetDateTime value = getDateTime(filter.getValue());
+				return builder.lessThanOrEqualTo(path, value);
+			}
+
 
 		}
 		return null;

@@ -1,5 +1,6 @@
 package dirijamais.project.dirijamais.modulos.transacao.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -16,6 +17,8 @@ public interface ITransacaoEntradaService {
     TransacaoEntrada atualizar(UUID usuarioUuid, TransacaoEntrada transacaoEntrada);
 
     Page<TransacaoEntrada> pesquisar(FiltroDTO filtro, Pageable pageable);
+
+    List<TransacaoEntrada> buscarEntradasPorFiltro(FiltroDTO filtro, Pageable pageable);
 
     void deletar(UUID uuid);
 }

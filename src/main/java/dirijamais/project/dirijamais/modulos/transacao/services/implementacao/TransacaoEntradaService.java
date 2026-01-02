@@ -101,5 +101,16 @@ public class TransacaoEntradaService implements ITransacaoEntradaService {
         repository.delete(transacaoEntrada);
     }
 
+    @Override
+    public List<TransacaoEntrada> buscarEntradasPorFiltro(FiltroDTO filtro, Pageable pageable) {
+        Page<TransacaoEntrada> transacaoEntrada = repository.findAll(DynamicSpecifications.bySearchFilter(filtro.getFilters(), filtro.getOrders()), pageable);
+		List<TransacaoEntrada> responses = transacaoEntrada
+				.getContent()
+				.stream()
+				.collect(Collectors.toList());
+
+        return responses;
+    }
+
 
 }

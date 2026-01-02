@@ -81,20 +81,9 @@ public class TransacaoSaidaController {
     @SecurityRequirement(name = "bearerAuth")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public Page<TransacaoSaidaResponseModel> pesquisar(@RequestBody FiltroDTO filtro) {
-
-        Page<TransacaoSaida> page = service.pesquisar(
-                filtro,
-                PageRequest.of(filtro.getPage(), filtro.getPagesize())
-        );
-
-        List<TransacaoSaidaResponseModel> lista =
-                mapper.toResponseModel(page.getContent());
-
-        return new PageImpl<>(
-                lista,
-                page.getPageable(),
-                page.getTotalElements()
-        );
+        Page<TransacaoSaida> page = service.pesquisar(filtro, PageRequest.of(filtro.getPage(), filtro.getPagesize()));
+        List<TransacaoSaidaResponseModel> lista = mapper.toResponseModel(page.getContent());
+        return new PageImpl<>(lista, page.getPageable(), page.getTotalElements());
     }
 
     @DeleteMapping("/{uuid}")
