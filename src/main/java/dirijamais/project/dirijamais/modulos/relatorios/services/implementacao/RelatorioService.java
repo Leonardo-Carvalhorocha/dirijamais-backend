@@ -141,7 +141,7 @@ public class RelatorioService implements IRelatorioService {
         return faturamentoPorViagem;
     }
 
-   @Override
+    @Override
     public BigDecimal calcularFaturamentoMedioPorHora(BigDecimal faturamentoTotal, Integer horasTrabalhados) {
 
         if (faturamentoTotal == null || horasTrabalhados == null || horasTrabalhados == 0) {
@@ -157,7 +157,7 @@ public class RelatorioService implements IRelatorioService {
         return faturamentoMedioPorHora;
     }
 
-   @Override
+    @Override
     public BigDecimal calcularFaturamentoMedioPorKM(BigDecimal faturamentoTotal, BigDecimal kmRodados) {
 
         if (faturamentoTotal == null 
@@ -175,8 +175,8 @@ public class RelatorioService implements IRelatorioService {
         return faturamentoMedioPorKM;
     }
 
-   @Override
-   public BigDecimal calcularCustosPorViagens(BigDecimal custosTotais, Integer totalViagens) {
+    @Override
+    public BigDecimal calcularCustosPorViagens(BigDecimal custosTotais, Integer totalViagens) {
         
         if (custosTotais == null || totalViagens == null || totalViagens == 0) {
             return BigDecimal.ZERO;
@@ -191,7 +191,7 @@ public class RelatorioService implements IRelatorioService {
         return custosTotaisPorViagem;
    }
 
-   @Override
+    @Override
     public BigDecimal calcularCustosPorHora(BigDecimal custosTotais, Integer horasTrabalhados) {
 
         if (custosTotais == null || horasTrabalhados == null || horasTrabalhados == 0) {
