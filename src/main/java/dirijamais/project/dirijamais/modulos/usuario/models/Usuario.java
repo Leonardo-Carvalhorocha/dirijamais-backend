@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import dirijamais.project.dirijamais.aplicacao.models.BaseEntity;
+import dirijamais.project.dirijamais.modulos.mensagemwhatsapp.models.MensagemWhatsapp;
 import dirijamais.project.dirijamais.modulos.transacao.models.TransacaoEntrada;
 import dirijamais.project.dirijamais.modulos.transacao.models.TransacaoSaida;
 import dirijamais.project.dirijamais.modulos.usuario.enums.Role;
@@ -55,6 +56,9 @@ public class Usuario extends BaseEntity implements UserDetails  {
     
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private PerfilUsuarioMotorista perfilMotorista;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private MensagemWhatsapp mensagem;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

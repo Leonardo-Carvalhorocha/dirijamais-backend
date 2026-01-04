@@ -228,6 +228,10 @@ public class RelatorioService implements IRelatorioService {
     @Override
     public BigDecimal calcularLucroPorViagem(BigDecimal saldoLiquido, Integer totalViagens) {
 
+        if (saldoLiquido == null || totalViagens == null || totalViagens == 0) {
+            return BigDecimal.ZERO;
+        }
+
         BigDecimal lucroPorViagem = saldoLiquido.divide(
             BigDecimal.valueOf(totalViagens),
             2,
